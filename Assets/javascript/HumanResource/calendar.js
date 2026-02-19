@@ -1,3 +1,18 @@
+/*
+'    ********************************************************************************************************************************
+'   Description:		HR
+'	Author:				COORETO
+'	History
+'	Change Number	Date					Author								Description
+'	00              19 Feb 2026				COORETO								Initial Creation
+'
+'	____________________________________________________________________________________________________________________________________
+'	** For developers: Please update history For us To keep track Of the changes made On this source code
+'
+'	*********************************************************************************************************************************/
+
+
+
 // localStorage key
 const STORAGE_KEY = 'fc-events-v1';
 
@@ -86,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
   calendar.render();
   renderEventList(initialEvents);
 
-  document.getElementById('btnAdd').addEventListener('click', () => {
+  document.getElementById('btnHRAddOnlineApplication').addEventListener('click', () => {
     Swal.fire({
       title: 'New Event',
       html: `
