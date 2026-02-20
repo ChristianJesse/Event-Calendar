@@ -29,6 +29,12 @@ function saveEvents(events) {
   console.log('Saved events:', events[0]);
 }
 
+function escapeHtml(str) {
+  return String(str || '').replace(/[&<>"']/g, function (s) {
+    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[s];
+  });
+}
+
 function renderEventList(events) {
   const list = document.getElementById('eventList');
   list.innerHTML = '';
@@ -49,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
+    fixedWeekCount: true,
     headerToolbar: {
       left: 'title',
       center: '',
@@ -61,7 +68,13 @@ document.addEventListener('DOMContentLoaded', function() {
     dayMaxEvents: true,
     events: initialEvents,
     eventContent: function(arg) {
-      let html = `<div style="font-weight: bold;">${arg.event.title} = ${arg.event.extendedProps.description}</div>`;
+      const title = escapeHtml(arg.event.title);
+      const desc = arg.event.extendedProps && arg.event.extendedProps.description;
+      const icon = (desc === 'APPROVED')
+        ? ' <i data-bs-toggle="tooltip" title="APPROVED" class="fas fa-thumbs-up" style="color: green; font-size:15px; margin-left: 3px;"></i>'
+        : '';
+      const bg = (desc === 'APPROVED') ? '#008b3c' : '#4e4485';
+      const html = `<div style="font-weight: bold; background-color: ${bg}; padding: 4px 6px; border-radius: 6px; display: inline-block;">${title}${icon}</div>`;
       return { html };
     },
 
